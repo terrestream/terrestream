@@ -30,6 +30,14 @@ one device. [Meet the Terrestream℠ Indoor Air Quality sensor →](https://terr
 IAQ is calculated; HA exposes it as **Computed EPA particulate AQI**. VOC and NOx
 are indices, not gas concentrations. [Units and measurement details →](docs/user-guide.md#measurements)
 
+## Your air, in Home Assistant
+
+![Live Terrestream readings in Home Assistant](docs/assets/ha-live-dashboard.jpg)
+
+Example dashboard built with standard Home Assistant cards and live readings from
+a retail sensor. Arrange cards to suit your home; this dashboard is not installed
+automatically.
+
 ## From readings to actionable intelligence
 
 Terrestream's apps and web dashboard combine indoor signals with outdoor conditions

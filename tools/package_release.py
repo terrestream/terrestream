@@ -23,6 +23,7 @@ FILES = (
     "docs/client.md",
     "docs/user-guide.md",
     "docs/assets/lucide-LICENSE.txt",
+    "docs/assets/ha-live-dashboard.jpg",
     "docs/assets/signals/co2.svg",
     "docs/assets/signals/voc.svg",
     "docs/assets/signals/nox.svg",
