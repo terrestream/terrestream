@@ -12,8 +12,9 @@ See [release status](docs/release-status.md) for testing and publication status.
 
 ## Installation
 
-**Publication is pending.** These customer installation steps apply after the
-integration release and its pinned `terrestream-local` package are published.
+**The Home Assistant integration release is pending.** The standalone
+[Python client 0.1.0](https://pypi.org/project/terrestream-local/0.1.0/) is published.
+These customer installation steps apply after the integration release.
 Until then, use the [development installation](#developer-installation-and-verification).
 
 Requirements: Home Assistant 2026.9.3 or newer, R500 firmware 4.1.0 with native
@@ -250,8 +251,8 @@ python -m build
 For a disposable HA development instance, install the built client wheel in its
 Python environment, copy `custom_components/terrestream_local` into the HA config's
 `custom_components` directory, and restart HA. The installed 0.1.0 wheel satisfies
-the manifest's exact dependency. HA OS installation requires the client package
-to be published on PyPI.
+the manifest's exact dependency. Installation on clean HA OS and Linux Container
+instances using the published PyPI package still requires qualification.
 
 The standalone bench helper `tools/pair_check.py` privately prompts for a code and
 stores credentials in an owner-only file outside the repository. It reports

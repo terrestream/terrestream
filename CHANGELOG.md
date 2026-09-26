@@ -1,5 +1,13 @@
 # Changelog
 
+## Python client 0.1.0 — September 26, 2026
+
+Published `terrestream-local` to PyPI from the `client-v0.1.0` tag using Trusted
+Publishing. Includes physical-code pairing, pinned local TLS, readings, commands,
+preference profiles, and controller-lease handling. Requires Python 3.13 or newer
+and firmware 4.1.0 with native HA support enabled. The Home Assistant integration
+and retail firmware qualification remain separate.
+
 ## Home Assistant integration 0.1.0 — unreleased
 
 The R500 connects directly to Home Assistant over local Wi-Fi using the eight-digit
