@@ -1,5 +1,11 @@
 # Changelog
 
+## Python client 0.1.1 — Unreleased
+
+Allow Protobuf 7 for compatibility with the Home Assistant development branch.
+Protocol behavior is unchanged. Compatibility tests cover Protobuf 5, 6, and 7
+on Python 3.13 and 3.14.
+
 ## Python client 0.1.0 — September 26, 2026
 
 Published `terrestream-local` to PyPI from the `client-v0.1.0` tag using Trusted

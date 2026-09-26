@@ -3,14 +3,14 @@ requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 [project]
 name = "terrestream-local"
-version = "0.1.0"
+version = "0.1.1"
 description = "Local authenticated Terrestream device client"
 readme = "docs/client.md"
 requires-python = ">=3.13"
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
 authors = [{name = "Aerodyne Inc."}]
-dependencies = ["aiohttp>=3.11,<4", "cryptography>=44", "protobuf>=5,<7"]
+dependencies = ["aiohttp>=3.11,<4", "cryptography>=44", "protobuf>=5,<8"]
 [project.urls]
 Homepage = "https://terrestream.com"
 Source = "https://github.com/terrestream/terrestream"
