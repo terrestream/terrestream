@@ -1,0 +1,299 @@
+{
+  "title": "Terrestream Local",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect your Terrestream",
+        "description": "On your device, open Setup → Home Assistant → Pair and enter its eight-digit code. The code expires after two minutes.\n\nIf you already use MQTT or the Terrestream cloud integration, follow the migration guide before choosing an existing history.",
+        "data": {
+          "host": "Device IP address or hostname",
+          "code": "Pairing code",
+          "legacy_source": "Existing measurement history (optional)"
+        },
+        "data_description": {
+          "host": "For example, 192.168.1.50. Discovery fills this in automatically.",
+          "code": "Keep any leading zeros.",
+          "legacy_source": "Choose New setup unless you have prepared your previous entities for migration."
+        }
+      },
+      "reconfigure": {
+        "title": "Update device address",
+        "data": {
+          "host": "Device IP address or hostname"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect. Check Wi-Fi and open a new pairing window on the device.",
+      "invalid_auth": "Pairing failed. Check the displayed code and try again."
+    },
+    "abort": {
+      "already_configured": "This device is already configured.",
+      "reauth_successful": "Device paired again successfully.",
+      "invalid_discovery": "Discovery did not include a device identity.",
+      "cannot_connect": "The discovered endpoint could not be authenticated.",
+      "reconfigure_successful": "Device address updated."
+    }
+  },
+  "issues": {
+    "controller_conflict": {
+      "title": "Another Home Assistant controller is active",
+      "description": "Stop duplicate or restored Home Assistant instances, wait one minute, then reload this integration. If ownership has changed, disconnect and pair again using the device display."
+    },
+    "offline_removal": {
+      "title": "Finish disconnecting the removed device",
+      "description": "Home Assistant could not confirm that the removed device erased its pairing. On that device, open Setup → Home Assistant → Disconnect and confirm. Removing an offline entry does not revoke a copied backup token."
+    },
+    "migration_incomplete": {
+      "title": "Finish migrating measurement history",
+      "description": "Setup paused to protect your existing entity IDs and history. Check the integration setup error, follow the migration guide, then reload this integration. Do not delete your old entities or recorder statistics."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "co2": {
+        "name": "Carbon dioxide"
+      },
+      "pm1": {
+        "name": "PM1"
+      },
+      "pm25": {
+        "name": "PM2.5"
+      },
+      "pm4": {
+        "name": "PM4"
+      },
+      "pm10": {
+        "name": "PM10"
+      },
+      "temperature": {
+        "name": "Temperature"
+      },
+      "humidity": {
+        "name": "Humidity"
+      },
+      "pressure": {
+        "name": "Pressure"
+      },
+      "illuminance": {
+        "name": "Illuminance"
+      },
+      "voc_index": {
+        "name": "VOC index"
+      },
+      "nox_index": {
+        "name": "NOx index"
+      },
+      "computed_epa_aqi": {
+        "name": "Computed EPA particulate AQI"
+      },
+      "estimated_tvoc_well": {
+        "name": "Estimated TVOC (WELL)"
+      },
+      "estimated_tvoc_reset": {
+        "name": "Estimated TVOC (RESET)"
+      }
+    },
+    "switch": {
+      "dark_mode": {
+        "name": "Dark theme"
+      },
+      "fahrenheit": {
+        "name": "Fahrenheit display"
+      },
+      "time_24h": {
+        "name": "24-hour clock"
+      },
+      "auto_brightness": {
+        "name": "Automatic brightness"
+      },
+      "quiet_hours": {
+        "name": "Quiet hours"
+      },
+      "ui_sounds": {
+        "name": "Touch sounds"
+      },
+      "notification_sounds": {
+        "name": "Notification sounds"
+      }
+    },
+    "number": {
+      "display_brightness": {
+        "name": "Display brightness"
+      },
+      "ring_brightness": {
+        "name": "Ring brightness"
+      },
+      "volume": {
+        "name": "Speaker volume"
+      },
+      "quiet_display": {
+        "name": "Quiet display brightness"
+      },
+      "quiet_ring": {
+        "name": "Quiet ring brightness"
+      },
+      "quiet_volume": {
+        "name": "Quiet speaker volume"
+      }
+    },
+    "select": {
+      "locale": {
+        "name": "Device language",
+        "state": {
+          "en": "English",
+          "fr_ca": "French (Canada)"
+        }
+      },
+      "index_mode": {
+        "name": "Display air index",
+        "state": {
+          "epa_aqi": "EPA AQI",
+          "aqhi_plus": "AQHI+"
+        }
+      },
+      "voc_mode": {
+        "name": "VOC presentation",
+        "state": {
+          "voc_index": "VOC index",
+          "well": "WELL estimate",
+          "reset": "RESET estimate"
+        }
+      },
+      "cloud_policy": {
+        "name": "Cloud data sharing",
+        "state": {
+          "cloud_enabled": "Cloud enabled",
+          "local_only": "Local only"
+        }
+      }
+    },
+    "button": {
+      "fan_clean": {
+        "name": "Clean sensor fan"
+      },
+      "check_update": {
+        "name": "Check for firmware update"
+      }
+    },
+    "update": {
+      "firmware_update": {
+        "name": "Firmware"
+      }
+    },
+    "text": {
+      "timezone": {
+        "name": "Device timezone"
+      },
+      "quiet_start": {
+        "name": "Quiet hours start"
+      },
+      "quiet_end": {
+        "name": "Quiet hours end"
+      }
+    }
+  },
+  "services": {
+    "export_preferences": {
+      "name": "Export preferences",
+      "description": "Export display preferences without credentials, identity, or cloud sharing policy.",
+      "fields": {
+        "config_entry_id": {
+          "name": "Device"
+        }
+      }
+    },
+    "import_preferences": {
+      "name": "Import preferences",
+      "description": "Validate and save a complete preference profile as one operation.",
+      "fields": {
+        "config_entry_id": {
+          "name": "Device"
+        },
+        "profile": {
+          "name": "Profile"
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "pairing_revoked": {
+      "message": "Open a new pairing window on the device."
+    },
+    "device_unavailable": {
+      "message": "Device unavailable during pairing confirmation. Check its Wi-Fi connection."
+    },
+    "command_failed": {
+      "message": "The device did not confirm the change. Check its connection and try again."
+    },
+    "busy": {
+      "message": "The device is busy. Wait for pairing, cleaning, or the update to finish, then try again."
+    },
+    "revision_conflict": {
+      "message": "A setting changed on the device or in another app. Refresh the device, then try again."
+    },
+    "storage_failure": {
+      "message": "The device could not save the change. Restart it and try again. Contact Terrestream support if this continues."
+    },
+    "invalid_value": {
+      "message": "This value is not supported by the device. Check its allowed range or timezone name."
+    },
+    "unsupported_setting": {
+      "message": "This firmware does not support that setting. Check for a firmware update."
+    },
+    "unsupported_method": {
+      "message": "This firmware does not support that action. Check for a firmware update."
+    },
+    "whole_number": {
+      "message": "Choose a whole number within the displayed range."
+    },
+    "quiet_time": {
+      "message": "Enter a 24-hour time as HH:MM, for example 22:30."
+    },
+    "approved_update": {
+      "message": "Only the firmware version offered by the Terrestream server can be installed."
+    },
+    "loaded_device": {
+      "message": "Select a connected Terrestream Local device."
+    },
+    "profile_unsupported": {
+      "message": "This firmware does not support preference profiles."
+    },
+    "profile_invalid": {
+      "message": "Use a complete, unmodified preference profile exported from a compatible Terrestream device."
+    },
+    "profile_unavailable": {
+      "message": "The device could not be reached. Reconnect it before exporting its preferences."
+    },
+    "migration_cloud": {
+      "message": "In the old Terrestream integration, disable raw signals and reload it; its current roster must identify this device"
+    },
+    "migration_active": {
+      "message": "Disable the old device's measurement entities before migration; keep other MQTT devices and cloud insights enabled"
+    },
+    "migration_units": {
+      "message": "An old measurement has incompatible units or statistics; review it before migration"
+    },
+    "migration_duplicate": {
+      "message": "Duplicate measurement histories require a manual choice before migration"
+    },
+    "migration_owner": {
+      "message": "The old measurement has no integration owner"
+    },
+    "migration_missing": {
+      "message": "No compatible previous measurement entities were found for this device"
+    },
+    "migration_restored": {
+      "message": "Migration could not finish; previous entity ownership was restored"
+    }
+  },
+  "selector": {
+    "legacy_source": {
+      "options": {
+        "none": "New setup",
+        "mqtt": "Preserve MQTT measurement history",
+        "terrestream": "Preserve cloud measurement history"
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+name: Suggest an improvement
+description: Discuss a feature or substantial change before implementation.
+body:
+  - type: markdown
+    attributes:
+      value: For vulnerabilities or sensitive details, use the private reporting route in SECURITY.md.
+  - type: textarea
+    id: need
+    attributes:
+      label: What would this help you do?
+      description: Describe the user need and any current workaround.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Include expected behavior and alternatives you considered.
+    validations:
+      required: true

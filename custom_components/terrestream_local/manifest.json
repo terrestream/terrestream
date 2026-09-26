@@ -1,0 +1,19 @@
+{
+  "domain": "terrestream_local",
+  "name": "Terrestream Local",
+  "codeowners": [
+    "@Xynergi"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/terrestream/terrestream",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/terrestream/terrestream/issues",
+  "requirements": [
+    "terrestream-local==0.1.0"
+  ],
+  "version": "0.1.0",
+  "zeroconf": [
+    "_terrestream._tcp.local."
+  ]
+}

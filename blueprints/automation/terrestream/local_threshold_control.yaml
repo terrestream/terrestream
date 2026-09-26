@@ -1,0 +1,124 @@
+blueprint:
+  name: Terrestream — local threshold control
+  description: >-
+    Use your own thresholds to control one switch from a fresh local sensor.
+    The upper threshold must exceed the lower threshold. Enable the helper to
+    allow automation; turn it off before manual control. Missing/stale readings
+    cancel pending changes and leave the switch alone. The full dwell time starts
+    again after HA restarts. A switch failure disables the helper and creates a
+    notification. No outdoor or cloud intelligence is used.
+  domain: automation
+  input:
+    sensor:
+      name: Local measurement
+      selector:
+        entity:
+          filter:
+            - domain: sensor
+              integration: terrestream_local
+    actuator:
+      name: Switch to control
+      selector:
+        entity:
+          filter:
+            - domain: switch
+    enabled:
+      name: Allow automatic control helper
+      description: Create a Toggle helper. Turn it off before taking manual control.
+      selector:
+        entity:
+          filter:
+            - domain: input_boolean
+    high:
+      name: Turn on above
+      description: Choose a threshold in the sensor's displayed unit.
+      selector:
+        number:
+          min: 0
+          max: 10000
+          step: 0.1
+          mode: box
+    low:
+      name: Turn off below
+      description: Must be lower than the turn-on threshold, in the same unit.
+      selector:
+        number:
+          min: 0
+          max: 10000
+          step: 0.1
+          mode: box
+    dwell:
+      name: Continuous time beyond the threshold
+      default: 5
+      selector:
+        number:
+          min: 1
+          max: 60
+          step: 1
+          unit_of_measurement: min
+          mode: box
+mode: single
+max_exceeded: silent
+variables:
+  reading: !input sensor
+  target_switch: !input actuator
+  enable_helper: !input enabled
+  high_threshold: !input high
+  low_threshold: !input low
+triggers:
+  - trigger: time_pattern
+    seconds: "/30"
+  - trigger: homeassistant
+    event: start
+  - trigger: state
+    entity_id: !input enabled
+    to: "on"
+conditions:
+  - condition: template
+    value_template: >-
+      {{ is_state(enable_helper, 'on') and is_number(states(reading))
+         and high_threshold | float > low_threshold | float }}
+actions:
+  - variables:
+      requested: >-
+        {{ 'none' if not is_number(states(reading)) else 'on' if states(reading) | float > high_threshold | float
+           else 'off' if states(reading) | float < low_threshold | float else 'none' }}
+  - condition: template
+    value_template: >-
+      {{ requested in ['on', 'off'] and states(target_switch) in ['on', 'off']
+         and states(target_switch) != requested }}
+  - wait_template: >-
+      {{ not is_state(enable_helper, 'on') or not is_number(states(reading))
+         or states(target_switch) not in ['on', 'off'] or is_state(target_switch, requested)
+         or (requested == 'on' and states(reading) | float(0) <= high_threshold | float)
+         or (requested == 'off' and states(reading) | float(0) >= low_threshold | float) }}
+    timeout:
+      minutes: !input dwell
+    continue_on_timeout: true
+  - condition: template
+    value_template: "{{ not wait.completed }}"
+  - condition: template
+    value_template: >-
+      {{ is_state(enable_helper, 'on') and is_number(states(reading))
+         and ((requested == 'on' and states(reading) | float > high_threshold | float)
+           or (requested == 'off' and states(reading) | float < low_threshold | float)) }}
+  - action: "switch.turn_{{ requested }}"
+    target:
+      entity_id: !input actuator
+    continue_on_error: true
+  - delay:
+      seconds: 5
+  - if:
+      - condition: template
+        value_template: "{{ not is_state(target_switch, requested) }}"
+    then:
+      - action: input_boolean.turn_off
+        target:
+          entity_id: !input enabled
+      - action: persistent_notification.create
+        data:
+          notification_id: "terrestream_control_{{ enable_helper | replace('.', '_') }}"
+          title: Local air control paused
+          message: >-
+            The selected switch did not confirm the requested state. Check the
+            switch and enable the automatic-control helper when ready.

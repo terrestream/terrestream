@@ -1,0 +1,35 @@
+name: Report a problem
+description: A problem with local R500 setup, readings, or controls.
+body:
+  - type: markdown
+    attributes:
+      value: Do not include pairing codes, credentials, backups, addresses, or raw device logs. Use redacted integration diagnostics.
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Home Assistant, integration, and R500 firmware versions.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Steps to reproduce, expected behavior, and actual behavior.
+    validations:
+      required: true
+  - type: dropdown
+    id: installation
+    attributes:
+      label: Home Assistant installation
+      options:
+        - Home Assistant OS
+        - Home Assistant Container on Linux
+        - Other development environment
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Redacted diagnostics and relevant error
+      description: Download diagnostics from the integration menu. Review attachments before submitting.

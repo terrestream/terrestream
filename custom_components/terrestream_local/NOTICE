@@ -1,0 +1,21 @@
+Terrestream Local
+
+Copyright © 2026 Aerodyne Inc. All Rights Reserved.
+Terrestream is a service mark of Aerodyne Inc.
+https://terrestream.com
+SPDX-License-Identifier: Apache-2.0
+Rights expressly granted under Apache-2.0 are not restricted by this notice.
+
+This notice applies to original Aerodyne contributions. Third-party code retains
+its own copyright and license; see the full project notices linked below and
+the notices distributed with that code. The Apache license text is reproduced unchanged.
+
+Home Assistant is a trademark of the Open Home Foundation. References describe
+compatibility; this project does not claim certification or endorsement. The
+Works with Home Assistant badge is not included or licensed by this project.
+
+This NOTICE is informational and does not amend the Apache License, Version 2.0.
+
+Full project notices: https://github.com/terrestream/terrestream
+The separately installed terrestream-local Python client carries its own
+Espressif attribution and third-party license files.

@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "terrestream-local"
+version = "0.1.0"
+description = "Local authenticated Terrestream device client"
+readme = "docs/client.md"
+requires-python = ">=3.13"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
+authors = [{name = "Aerodyne Inc."}]
+dependencies = ["aiohttp>=3.11,<4", "cryptography>=44", "protobuf>=5,<7"]
+[project.urls]
+Homepage = "https://terrestream.com"
+Source = "https://github.com/terrestream/terrestream"
+Issues = "https://github.com/terrestream/terrestream/issues"
+Documentation = "https://github.com/terrestream/terrestream/blob/main/docs/protocol.md"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+[tool.setuptools.package-data]
+terrestream_local = ["py.typed", "_espressif/LICENSE", "_espressif/UPSTREAM.md"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.mypy]
+strict = true
+explicit_package_bases = true
+mypy_path = "src:."
+follow_imports = "silent"
+ignore_missing_imports = true
+exclude = "_espressif"
+files = ["src/terrestream_local", "custom_components/terrestream_local"]

@@ -1,0 +1,31 @@
+{
+  "entity": {
+    "sensor": {
+      "voc_index": {
+        "default": "mdi:molecule"
+      },
+      "nox_index": {
+        "default": "mdi:molecule"
+      },
+      "pm4": {
+        "default": "mdi:blur"
+      }
+    },
+    "button": {
+      "fan_clean": {
+        "default": "mdi:fan"
+      },
+      "check_update": {
+        "default": "mdi:update"
+      }
+    },
+    "select": {
+      "cloud_policy": {
+        "state": {
+          "cloud_enabled": "mdi:cloud-check",
+          "local_only": "mdi:home-lock"
+        }
+      }
+    }
+  }
+}

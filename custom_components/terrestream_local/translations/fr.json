@@ -1,0 +1,299 @@
+{
+  "title": "Terrestream Local",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connecter votre Terrestream",
+        "description": "Sur l’appareil, ouvrez Configuration → Home Assistant → Jumeler et entrez le code à huit chiffres. Il expire après deux minutes.\n\nSi vous utilisez déjà MQTT ou l’intégration cloud Terrestream, suivez le guide de migration avant de sélectionner un historique existant.",
+        "data": {
+          "host": "Adresse IP ou nom d’hôte de l’appareil",
+          "code": "Code de jumelage",
+          "legacy_source": "Historique existant (facultatif)"
+        },
+        "data_description": {
+          "host": "Par exemple, 192.168.1.50. La découverte remplit ce champ automatiquement.",
+          "code": "Conservez les zéros au début du code.",
+          "legacy_source": "Choisissez Nouvelle configuration, sauf si vous avez préparé vos anciennes entités pour la migration."
+        }
+      },
+      "reconfigure": {
+        "title": "Modifier l’adresse de l’appareil",
+        "data": {
+          "host": "Adresse IP ou nom d’hôte de l’appareil"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Connexion impossible. Vérifiez le Wi-Fi et ouvrez une nouvelle fenêtre de jumelage sur l’appareil.",
+      "invalid_auth": "Échec du jumelage. Vérifiez le code affiché et réessayez."
+    },
+    "abort": {
+      "already_configured": "Cet appareil est déjà configuré.",
+      "reauth_successful": "L’appareil est de nouveau jumelé.",
+      "invalid_discovery": "L’annonce ne contient pas d’identité d’appareil.",
+      "cannot_connect": "Impossible d’authentifier l’appareil à cette adresse.",
+      "reconfigure_successful": "Adresse de l’appareil mise à jour."
+    }
+  },
+  "issues": {
+    "controller_conflict": {
+      "title": "Un autre contrôleur Home Assistant est actif",
+      "description": "Arrêtez les instances en double ou restaurées de Home Assistant, attendez une minute, puis rechargez cette intégration. Si le propriétaire a changé, déconnectez et jumelez de nouveau l’appareil à partir de son écran."
+    },
+    "offline_removal": {
+      "title": "Terminer la déconnexion de l’appareil retiré",
+      "description": "Home Assistant n’a pas pu confirmer la suppression du jumelage. Sur l’appareil retiré, ouvrez Configuration → Home Assistant → Déconnecter, puis confirmez. Supprimer une entrée hors ligne ne révoque pas les clés conservées dans une sauvegarde."
+    },
+    "migration_incomplete": {
+      "title": "Terminer la migration de l’historique",
+      "description": "La configuration est suspendue pour protéger vos identifiants d’entité et votre historique. Consultez l’erreur de configuration, suivez le guide de migration, puis rechargez cette intégration. Ne supprimez pas les anciennes entités ni leurs statistiques."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "co2": {
+        "name": "Dioxyde de carbone"
+      },
+      "pm1": {
+        "name": "PM1"
+      },
+      "pm25": {
+        "name": "PM2.5"
+      },
+      "pm4": {
+        "name": "PM4"
+      },
+      "pm10": {
+        "name": "PM10"
+      },
+      "temperature": {
+        "name": "Température"
+      },
+      "humidity": {
+        "name": "Humidité"
+      },
+      "pressure": {
+        "name": "Pression"
+      },
+      "illuminance": {
+        "name": "Éclairement"
+      },
+      "voc_index": {
+        "name": "Indice COV"
+      },
+      "nox_index": {
+        "name": "Indice NOx"
+      },
+      "computed_epa_aqi": {
+        "name": "IQA particulaire EPA calculé"
+      },
+      "estimated_tvoc_well": {
+        "name": "COVT estimés (WELL)"
+      },
+      "estimated_tvoc_reset": {
+        "name": "COVT estimés (RESET)"
+      }
+    },
+    "switch": {
+      "dark_mode": {
+        "name": "Thème sombre"
+      },
+      "fahrenheit": {
+        "name": "Affichage en Fahrenheit"
+      },
+      "time_24h": {
+        "name": "Horloge de 24 heures"
+      },
+      "auto_brightness": {
+        "name": "Luminosité automatique"
+      },
+      "quiet_hours": {
+        "name": "Heures calmes"
+      },
+      "ui_sounds": {
+        "name": "Sons tactiles"
+      },
+      "notification_sounds": {
+        "name": "Sons de notification"
+      }
+    },
+    "number": {
+      "display_brightness": {
+        "name": "Luminosité de l’écran"
+      },
+      "ring_brightness": {
+        "name": "Luminosité de l’anneau"
+      },
+      "volume": {
+        "name": "Volume du haut-parleur"
+      },
+      "quiet_display": {
+        "name": "Luminosité de l’écran en heures calmes"
+      },
+      "quiet_ring": {
+        "name": "Luminosité de l’anneau en heures calmes"
+      },
+      "quiet_volume": {
+        "name": "Volume en heures calmes"
+      }
+    },
+    "select": {
+      "locale": {
+        "name": "Langue de l’appareil",
+        "state": {
+          "en": "Anglais",
+          "fr_ca": "Français (Canada)"
+        }
+      },
+      "index_mode": {
+        "name": "Indice affiché",
+        "state": {
+          "epa_aqi": "EPA AQI",
+          "aqhi_plus": "AQHI+"
+        }
+      },
+      "voc_mode": {
+        "name": "Présentation des COV",
+        "state": {
+          "voc_index": "Indice COV",
+          "well": "Estimation WELL",
+          "reset": "Estimation RESET"
+        }
+      },
+      "cloud_policy": {
+        "name": "Partage des données cloud",
+        "state": {
+          "cloud_enabled": "Cloud activé",
+          "local_only": "Local uniquement"
+        }
+      }
+    },
+    "button": {
+      "fan_clean": {
+        "name": "Nettoyer le ventilateur du capteur"
+      },
+      "check_update": {
+        "name": "Rechercher une mise à jour"
+      }
+    },
+    "update": {
+      "firmware_update": {
+        "name": "Micrologiciel"
+      }
+    },
+    "text": {
+      "timezone": {
+        "name": "Fuseau horaire de l’appareil"
+      },
+      "quiet_start": {
+        "name": "Début des heures calmes"
+      },
+      "quiet_end": {
+        "name": "Fin des heures calmes"
+      }
+    }
+  },
+  "services": {
+    "export_preferences": {
+      "name": "Exporter les préférences",
+      "description": "Exporte les réglages d’affichage sans identifiants ni politique cloud.",
+      "fields": {
+        "config_entry_id": {
+          "name": "Appareil"
+        }
+      }
+    },
+    "import_preferences": {
+      "name": "Importer les préférences",
+      "description": "Applique un profil complet après validation et enregistrement durable.",
+      "fields": {
+        "config_entry_id": {
+          "name": "Appareil"
+        },
+        "profile": {
+          "name": "Profil"
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "pairing_revoked": {
+      "message": "Ouvrez une nouvelle fenêtre de jumelage sur l’appareil."
+    },
+    "device_unavailable": {
+      "message": "Appareil indisponible pendant la confirmation du jumelage. Vérifiez sa connexion Wi-Fi."
+    },
+    "command_failed": {
+      "message": "L’appareil n’a pas confirmé la modification. Vérifiez sa connexion et réessayez."
+    },
+    "busy": {
+      "message": "L’appareil est occupé. Attendez la fin du jumelage, du nettoyage ou de la mise à jour, puis réessayez."
+    },
+    "revision_conflict": {
+      "message": "Un réglage a changé sur l’appareil ou dans une autre application. Actualisez l’appareil, puis réessayez."
+    },
+    "storage_failure": {
+      "message": "L’appareil n’a pas pu enregistrer la modification. Redémarrez-le et réessayez. Si le problème persiste, contactez le soutien Terrestream."
+    },
+    "invalid_value": {
+      "message": "Cette valeur n’est pas prise en charge. Vérifiez la plage permise ou le nom du fuseau horaire."
+    },
+    "unsupported_setting": {
+      "message": "Ce micrologiciel ne prend pas en charge ce réglage. Recherchez une mise à jour."
+    },
+    "unsupported_method": {
+      "message": "Ce micrologiciel ne prend pas en charge cette action. Recherchez une mise à jour."
+    },
+    "whole_number": {
+      "message": "Choisissez un nombre entier dans la plage affichée."
+    },
+    "quiet_time": {
+      "message": "Entrez l’heure au format 24 heures HH:MM, par exemple 22:30."
+    },
+    "approved_update": {
+      "message": "Seule la version offerte par le serveur Terrestream peut être installée."
+    },
+    "loaded_device": {
+      "message": "Sélectionnez un appareil Terrestream Local connecté."
+    },
+    "profile_unsupported": {
+      "message": "Ce micrologiciel ne prend pas en charge les profils de préférences."
+    },
+    "profile_invalid": {
+      "message": "Utilisez un profil de préférences complet et non modifié exporté d’un appareil Terrestream compatible."
+    },
+    "profile_unavailable": {
+      "message": "Impossible de joindre l’appareil. Reconnectez-le avant d’exporter ses préférences."
+    },
+    "migration_cloud": {
+      "message": "Dans l’ancienne intégration Terrestream, désactivez les mesures brutes et rechargez-la. Sa liste actuelle doit identifier cet appareil."
+    },
+    "migration_active": {
+      "message": "Désactivez les anciennes entités de mesure de cet appareil avant la migration. Les autres appareils MQTT et les analyses cloud peuvent rester actifs."
+    },
+    "migration_units": {
+      "message": "Une ancienne mesure utilise des unités ou des statistiques incompatibles. Vérifiez-la avant la migration."
+    },
+    "migration_duplicate": {
+      "message": "Des historiques de mesure en double nécessitent un choix manuel avant la migration."
+    },
+    "migration_owner": {
+      "message": "L’ancienne mesure n’appartient à aucune intégration."
+    },
+    "migration_missing": {
+      "message": "Aucune ancienne entité de mesure compatible n’a été trouvée pour cet appareil."
+    },
+    "migration_restored": {
+      "message": "La migration n’a pas pu se terminer. Les entités ont été réattribuées à leur intégration précédente."
+    }
+  },
+  "selector": {
+    "legacy_source": {
+      "options": {
+        "none": "Nouvelle configuration",
+        "mqtt": "Conserver l’historique MQTT",
+        "terrestream": "Conserver l’historique des mesures cloud"
+      }
+    }
+  }
+}

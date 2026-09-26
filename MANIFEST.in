@@ -1,0 +1,4 @@
+include docs/client.md docs/protocol.md docs/licensing.md LICENSE NOTICE THIRD_PARTY_NOTICES.md
+prune tests
+prune internal
+prune evidence
