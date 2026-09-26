@@ -4,9 +4,9 @@ Connect your **Terrestream℠ Indoor Air Quality sensor** to Home Assistant over
 local Wi-Fi. See live readings, adjust settings, and create automations—without
 an MQTT broker or a Terrestream account.
 
-**Release preview · September 26, 2026.** The Python client is published; the
-Home Assistant integration release and firmware rollout are pending. The public
-firmware catalog remains on 4.0.72. [View release status →](docs/release-status.md)
+**Release preview · September 26, 2026.** Firmware **4.1.0** is available through
+Terrestream updates, and the Python client is published. The Home Assistant
+integration release is pending. [View release status →](docs/release-status.md)
 
 ```mermaid
 flowchart LR
