@@ -8,7 +8,7 @@ preference profiles, and controller-lease handling. Requires Python 3.13 or newe
 and firmware 4.1.0 with native HA support enabled. The Home Assistant integration
 and retail firmware qualification remain separate.
 
-## Home Assistant integration 0.1.0 — unreleased
+## Home Assistant integration 0.1.0 — September 26, 2026
 
 The Terrestream℠ Indoor Air Quality sensor connects directly to Home Assistant over local Wi-Fi using the eight-digit
 code shown on its screen. Firmware 4.1.0 is required. No account or MQTT broker is
@@ -28,6 +28,6 @@ Website Pro intelligence is not included. Local only stops cloud measurement
 sharing; minimal update-health traffic and server firmware updates still use
 internet connectivity.
 
-This is not yet a public installation or certified release. See [release status](docs/release-status.md)
-for outstanding tests and publication requirements. HA Core will receive a smaller,
+This is the first public custom integration release. See [release status](docs/release-status.md)
+for tested scope and known limitations. It is not certified. HA Core will receive a smaller,
 sensor-only initial contribution; the full custom integration is maintained here.
