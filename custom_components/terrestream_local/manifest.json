@@ -10,9 +10,9 @@
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/terrestream/terrestream/issues",
   "requirements": [
-    "terrestream-local==0.1.0"
+    "terrestream-local==0.1.1"
   ],
-  "version": "0.1.0",
+  "version": "0.1.1",
   "zeroconf": [
     "_terrestream._tcp.local."
   ]
