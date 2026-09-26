@@ -10,7 +10,7 @@ and retail firmware qualification remain separate.
 
 ## Home Assistant integration 0.1.0 — unreleased
 
-The R500 connects directly to Home Assistant over local Wi-Fi using the eight-digit
+The Terrestream℠ Indoor Air Quality sensor connects directly to Home Assistant over local Wi-Fi using the eight-digit
 code shown on its screen. Firmware 4.1.0 is required. No account or MQTT broker is
 required for local readings and controls.
 

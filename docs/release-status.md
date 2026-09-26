@@ -1,40 +1,44 @@
 # Release status
 
-Updated September 26, 2026. **Unpublished integration 0.1.0 for firmware 4.1.0.**
-Home Assistant Core acceptance and Works with Home Assistant certification are
-pending. Native HA is disabled in standard firmware builds.
+**Terrestream℠ Indoor Air Quality sensor · September 26, 2026**
 
-Source and the issue tracker are public at
-[terrestream/terrestream](https://github.com/terrestream/terrestream).
-[Python client 0.1.0](https://pypi.org/project/terrestream-local/0.1.0/) was published
-through the reviewed `client-v0.1.0` GitHub workflow using PyPI Trusted Publishing.
-The public downloads match the reviewed CI artifacts, and a clean Python install
-and import succeeded. HACS and hassfest pass on the client release commit.
-The Home Assistant integration remains unreleased; client publication does not
-qualify or release the firmware or integration.
+| Component | Status |
+|---|---|
+| Source and issue tracker | [Public on GitHub](https://github.com/terrestream/terrestream) |
+| Python client 0.1.0 | [Published on PyPI](https://pypi.org/project/terrestream-local/0.1.0/); download hashes and a clean install verified |
+| Home Assistant integration 0.1.0 | Release pending; HACS and hassfest passed on the client release commit |
+| Firmware 4.1.0 | Controlled retail test completed; findings remain open |
+| Public firmware catalog | **4.0.72**; the single-device 4.1.0 offer was removed |
+| HA Core / Works with Home Assistant | Acceptance and certification pending |
 
-## Testing
+Firmware 4.0.72 does not support this local protocol. The test image enables
+native HA explicitly; standard build defaults still leave it disabled.
 
-Local pairing, pinned TLS, readings, controls, cloud-sharing policy and server
-update integration have been exercised on one unsigned R500 with HA 2026.9.3.
-An 11.57-hour bench run detected no device resets or memory threshold failures.
-Menu and BLE activity caused temporary HA unavailability, followed by automatic
-recovery. The run did not establish seven-day uninterrupted operation.
+## Verified so far
 
-## Remaining release work
+- **Bench:** pairing, local TLS, readings, controls, cloud-sharing policy and server
+  update integration. The user accepted an 11.57-hour exercise with no detected
+  device resets or memory-gate failures. Temporary HA unavailability and cached
+  samples remain recorded; this was not a seven-day uninterrupted soak.
+- **Retail:** signed OTA, 12 live measurements, saved/restored controls, HA reload
+  and restart, concurrent cloud uploads, and pairing persistence through a user
+  power-cycle. No unexpected device reset was observed.
+- **Published packages:** the public integration files and verified PyPI client
+  passed a runtime control check and reboot recovery in Docker Desktop with
+  HA 2026.9.3. This does not qualify HA OS or supported Linux Container installation.
 
-- Complete fault recovery, network and BLE/MQTT/mobile coexistence testing,
-  including memory-reserve stress.
-- Test secured retail OTA, encrypted storage, rollback and interrupted updates
-  on secured hardware.
-- Verify HA OS and Linux Container installation using the published PyPI package,
-  including setup, controls, restart and removal.
-- Test multiple devices, routed IPv6, physical actuators and migration from
-  existing MQTT/cloud installations.
-- Publish the integration release after installation and hardware qualification.
-- Distribute qualified firmware before submitting the initial sensor-only Core
-  contribution, documentation and brand assets.
-- Obtain Works with Home Assistant approval before displaying its badge.
+## Before release
 
-See [README.md](../README.md) for supported features and
-[MAINTAINING.md](maintaining.md) for packaging and release procedures.
+1. Resolve the initial **31 KiB** pairing-memory result against the **32 KiB**
+   snapshot target, slow recovery when reload overlaps an update check, and
+   classification of the brief startup HA interruption. Later retail measurements
+   reached **38 KiB**; earlier findings remain open.
+2. Complete extended-load, fault-recovery, poor-network, BLE/MQTT/mobile coexistence,
+   encrypted-storage, interrupted-update and rollback tests.
+3. Qualify published-package installation on HA OS/Linux Container, multiple sensors,
+   routed IPv6, physical actuators and existing MQTT/cloud migrations.
+4. Publish the integration and distribute qualified firmware before the initial
+   sensor-only Core contribution, documentation and brand submission.
+5. Obtain Works with Home Assistant approval before displaying its badge.
+
+[Quick start](../README.md) · [Maintainer release procedure](maintaining.md)

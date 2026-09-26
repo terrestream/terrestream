@@ -26,7 +26,7 @@ rules:
   docs-high-level-description: done
   docs-installation-instructions:
     status: todo
-    comment: Development setup is documented in README.md; HA OS and Container retail installation require package publication and acceptance.
+    comment: Development setup is documented in CONTRIBUTING.md; HA OS and Linux Container installation require acceptance with the published package.
   docs-removal-instructions: done
   entity-event-setup: done
   entity-unique-id: done
@@ -62,7 +62,7 @@ rules:
   docs-use-cases: done
   dynamic-devices:
     status: exempt
-    comment: Each entry represents one fixed physical R500, not a hub or cloud roster. New devices get independent config entries.
+    comment: Each entry represents one fixed physical Terrestream℠ Indoor Air Quality sensor, not a hub or cloud roster. New devices get independent config entries.
   entity-category: done
   entity-device-class: done
   entity-disabled-by-default: done
@@ -75,7 +75,7 @@ rules:
     comment: Reauth handles revoked trust; controller conflicts, offline removal and failed history migration have actionable repair notices.
   stale-devices:
     status: exempt
-    comment: Each entry represents one fixed physical R500. Remove the config entry to remove its device; transient absence preserves history.
+    comment: Each entry represents one fixed physical Terrestream℠ Indoor Air Quality sensor. Remove the config entry to remove its device; transient absence preserves history.
   async-dependency:
     status: done
     comment: Injected aiohttp session with async I/O; SRP computation is offloaded to a worker thread. No vendor-cloud calls from HA.

@@ -19,6 +19,18 @@ python -m pip install -e . -r requirements-test.txt
 python tools/verify.py
 ```
 
+To test in a disposable Home Assistant instance:
+
+1. Build the client wheel with `python -m build` and install it in that instance's
+   Python environment. Its version must match the integration manifest.
+2. Copy `custom_components/terrestream_local` into HA's `custom_components` folder.
+3. Restart HA and follow [pairing](README.md#pair-in-five-steps).
+
+Use firmware 4.1.0 with native HA enabled. The standalone client supports Python
+3.13 or newer; HA development uses Python 3.14. The optional `tools/pair_check.py`
+helper stores credentials privately outside the repository. Never run it as a
+second controller against a sensor already controlled by HA.
+
 The verification script runs lint, formatting, typing and tests, and enforces
 more than 95% combined statement and branch coverage per integration module.
 GitHub also runs hassfest, HACS validation and client tests on Python 3.13/3.14.

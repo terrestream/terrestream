@@ -1,5 +1,7 @@
 # Preserve existing measurement history
 
+For the **Terrestream℠ Indoor Air Quality sensor**.
+
 Migration is optional. Back up Home Assistant first. Do not delete existing
 entities or recorder statistics. Only same-device, same-meaning measurements with
 compatible units/statistics move. Entity IDs, names, entity areas, disabled states,
@@ -7,17 +9,17 @@ and recorder statistic IDs stay intact. Website Pro insights are not migrated.
 
 ## From MQTT discovery
 
-1. Record the existing R500 measurement entities you want to keep. Disable those
+1. Record the existing sensor measurement entities you want to keep. Disable those
    entities in their HA settings and reload MQTT so they are no longer loaded.
    Keep the entities in HA's registry; do not disable unrelated MQTT devices.
 2. Disable the device's user-managed MQTT connection before enabling its native
    HA pairing. Its stored broker preferences can remain saved for rollback.
-3. Add Terrestream Local, pair on the physical R500, and select **Preserve MQTT
+3. Add Terrestream Local, pair on the physical sensor, and select **Preserve MQTT
    measurement history** during setup.
 4. Verify the original entity IDs now belong to Terrestream Local. Re-enable any
    migrated entities you disabled in step 1. Confirm dashboards and automations
    still reference the intended entities.
-5. Remove obsolete retained discovery configuration messages for this R500 only,
+5. Remove obsolete retained discovery configuration messages for this sensor only,
    using your broker's administration tools after recording the exact old topics.
    Do not purge a broker-wide discovery prefix or remove another device's messages.
    Leaving retained messages can cause the old MQTT integration to recreate entries.
@@ -31,7 +33,7 @@ are deliberately not relabeled as a different measurement.
 
 1. In that integration, enable its **disable raw signals** option and reload it.
    Keep its cloud insights enabled if desired. Its current authenticated device
-   roster must include this R500's UUID. This roster is used only for identity
+   roster must include this sensor's UUID. This roster is used only for identity
    matching; the new integration does not copy its cloud token or contact the cloud.
 2. Keep compatible old measurement entities in the registry but unloaded.
 3. Add Terrestream Local and choose **Preserve cloud measurement history**.

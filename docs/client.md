@@ -1,14 +1,14 @@
 # terrestream-local
 
-Asynchronous Python client for the Terrestream R500 local protocol, separate from
-its Home Assistant adapter. Apache-2.0 licensed; Python 3.13 or newer. Version
+Asynchronous local client for the **Terrestream℠ Indoor Air Quality sensor**,
+separate from its Home Assistant integration. Apache-2.0 licensed; Python 3.13 or newer. Version
 0.1.0 targets firmware 4.1.0. Retail firmware qualification and the Home Assistant
 integration release remain pending; firmware 4.0.72 does not implement this protocol.
 
 The library accepts a caller-owned `aiohttp.ClientSession`. Physical-code SRP2
 pairing establishes a device token and certificate fingerprint; subsequent local
 TLS connections authenticate the pinned device. It makes no vendor-cloud calls.
-An R500 and the client must be reachable on the local network. No MQTT broker or
+The sensor and client must be reachable on the local network. No MQTT broker or
 Terrestream web account is required. See [PROTOCOL.md](https://github.com/terrestream/terrestream/blob/main/docs/protocol.md) for the wire
 contract, freshness, exclusive controller lease, retry, and trust behavior.
 

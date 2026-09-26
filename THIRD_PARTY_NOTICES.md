@@ -31,3 +31,14 @@ Home Assistant is a trademark of the Open Home Foundation. References identify
 compatibility and do not imply certification or endorsement. Other third-party
 names and marks remain with their respective owners. The Apache license text is
 reproduced unchanged and is not claimed as original Aerodyne-authored text.
+
+## Homepage signal icons
+
+The nine SVG illustrations under `docs/assets/signals/` adapt Lucide static
+0.468.0 icons used on the Terrestream homepage. Paths retain their upstream
+geometry; Aerodyne added the homepage colors and circular backgrounds.
+
+- Upstream: [Lucide](https://lucide.dev).
+- License: ISC; the upstream copyright and permission notice are included in
+  [`docs/assets/lucide-LICENSE.txt`](docs/assets/lucide-LICENSE.txt).
+- These assets are documentation only and are not part of the Python client.
