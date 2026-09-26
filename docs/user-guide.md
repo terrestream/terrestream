@@ -105,6 +105,10 @@ never changes this policy.
   version unknown.
 - Local connectivity can pause during checks, updates, Bluetooth onboarding or
   Wi-Fi setup. Allow recovery before reloading the integration.
+- If HA is reloaded during an update check, the previous controller lease may
+  need to expire before HA reconnects. Leave the sensor powered on and allow
+  up to two minutes before troubleshooting; repeated reloads can delay recovery.
+  Pairing and saved settings are retained.
 
 ## Preference profiles
 
