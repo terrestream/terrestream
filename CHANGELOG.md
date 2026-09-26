@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 — unreleased
+## Home Assistant integration 0.1.0 — unreleased
 
 The R500 connects directly to Home Assistant over local Wi-Fi using the eight-digit
 code shown on its screen. Firmware 4.1.0 is required. No account or MQTT broker is

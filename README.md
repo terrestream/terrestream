@@ -6,7 +6,7 @@ measurements, change device preferences, and build your own automations. Website
 Pro intelligence is not part of this integration.
 
 **4.1.0 qualification candidate.** The integration and client are implemented and
-bench tested, but not yet published to Home Assistant Core, HACS, or PyPI. Native
+bench tested. The Home Assistant integration is not yet released through Core or HACS. Native
 HA is disabled in standard firmware builds. This is not a certified release.
 See [release status](docs/release-status.md) for testing and publication status.
 
@@ -216,8 +216,7 @@ and update outcomes. They omit readings, UUIDs, addresses, tokens, certificates,
 and account data. Do not attach HA backups or the standalone client's credentials
 file to an issue. Include firmware and HA versions, reproduction steps, and
 redacted diagnostics when reporting a problem. Maintainer: `@Xynergi`.
-Repository: [terrestream/terrestream](https://github.com/terrestream/terrestream); public
-access is pending.
+Repository: [terrestream/terrestream](https://github.com/terrestream/terrestream).
 
 ## Removal, backups, and ownership
 

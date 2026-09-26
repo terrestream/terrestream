@@ -1,9 +1,9 @@
 # terrestream-local
 
 Asynchronous Python client for the Terrestream R500 local protocol, separate from
-its Home Assistant adapter. Apache-2.0 licensed; Python 3.13 or newer. Candidate
-0.1.0 targets firmware 4.1.0. Package publication and retail qualification are
-pending; firmware 4.0.72 does not implement this protocol.
+its Home Assistant adapter. Apache-2.0 licensed; Python 3.13 or newer. Version
+0.1.0 targets firmware 4.1.0. Retail firmware qualification and the Home Assistant
+integration release remain pending; firmware 4.0.72 does not implement this protocol.
 
 The library accepts a caller-owned `aiohttp.ClientSession`. Physical-code SRP2
 pairing establishes a device token and certificate fingerprint; subsequent local
@@ -35,8 +35,7 @@ prompts privately and saves an owner-only credentials file. Do not put that file
 in source control, a bug report, or a shared archive.
 
 Source and issues: [terrestream/terrestream](https://github.com/terrestream/terrestream).
-Public access is pending.
-Versioned distributions will be built in public CI from `client-v<version>` tags
+Versioned distributions are built in public CI from `client-v<version>` tags
 and published using PyPI Trusted Publishing. Vendored Espressif protocol code
 retains its upstream license and provenance under `_espressif/`.
 

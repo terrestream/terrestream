@@ -4,8 +4,8 @@
 
 Use the security disclosure option on [Terrestream's contact page](https://terrestream.com/contact).
 
-When GitHub's private reporting feature is available for this repository, you can
-also use **Security → Report a vulnerability**. Do not post vulnerabilities,
+You can also [report a vulnerability privately on GitHub](https://github.com/terrestream/terrestream/security/advisories/new).
+Do not post vulnerabilities,
 pairing codes, credentials, HA backups or raw device logs in public issues.
 
 Include the integration, client, Home Assistant and firmware versions; steps to
@@ -15,8 +15,8 @@ you own or have permission to test.
 
 ## Supported versions
 
-Version 0.1.0 is an unpublished candidate. Reports about the current candidate are
-welcome; no stable release or long-term support branch has been published yet.
+Reports about Python client 0.1.0 and the Home Assistant integration candidate are
+welcome. No long-term support branch has been published.
 Released fixes will identify affected versions and upgrade instructions in the
 changelog and release notes.
 

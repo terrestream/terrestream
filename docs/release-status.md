@@ -4,6 +4,12 @@ Updated September 26, 2026. **Unpublished integration 0.1.0 for firmware 4.1.0.*
 Home Assistant Core acceptance and Works with Home Assistant certification are
 pending. Native HA is disabled in standard firmware builds.
 
+Source and the issue tracker are public at
+[terrestream/terrestream](https://github.com/terrestream/terrestream).
+The standalone Python client and the Home Assistant integration have separate
+release schedules; publishing the client does not qualify or release the firmware
+or integration.
+
 ## Testing
 
 Local pairing, pinned TLS, readings, controls, cloud-sharing policy and server
@@ -22,7 +28,7 @@ recovery. The run did not establish seven-day uninterrupted operation.
   including setup, controls, restart and removal.
 - Test multiple devices, routed IPv6, physical actuators and migration from
   existing MQTT/cloud installations.
-- Publish the source, issue tracker and matching client through tagged public CI.
+- Publish the matching client through tagged public CI, then release the integration.
 - Distribute qualified firmware before submitting the initial sensor-only Core
   contribution, documentation and brand assets.
 - Obtain Works with Home Assistant approval before displaying its badge.
