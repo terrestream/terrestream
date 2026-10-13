@@ -2,8 +2,10 @@
 
 Asynchronous local client for the **Terrestream℠ Indoor Air Quality sensor**,
 separate from its Home Assistant integration. Apache-2.0 licensed; Python 3.13 or newer. Version
-0.1.0 targets firmware 4.1.0. Retail firmware qualification and the Home Assistant
-integration release remain pending; firmware 4.0.72 does not implement this protocol.
+0.1.1 is [published on PyPI](https://pypi.org/project/terrestream-local/0.1.1/) and
+supports Protobuf 5, 6 and 7. Requires firmware 4.1.0 or newer with native Home
+Assistant support; firmware 4.0.72 does not implement this protocol. See
+[release status](release-status.md) for integration and hardware qualification.
 
 The library accepts a caller-owned `aiohttp.ClientSession`. Physical-code SRP2
 pairing establishes a device token and certificate fingerprint; subsequent local

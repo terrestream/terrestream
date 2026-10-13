@@ -9,7 +9,7 @@ from terrestream_local import Credentials
 from terrestream_local.preferences import RANGES, export_profile, validate_profile
 
 from .test_client import TOKEN, UUID, snapshot
-from .test_integration import config_entry
+from .test_integration import config_entry, mock_available_measurements
 
 
 def profile():
@@ -72,7 +72,7 @@ async def test_profile_actions_and_privacy_control_in_real_ha(
         client.identity = AsyncMock(return_value={"paired": True})
         client.refresh = AsyncMock(return_value=data)
         client.command = AsyncMock(return_value={"ok": True})
-        client.measurement_remaining.return_value = 60.0
+        mock_available_measurements(client, data)
         assert await hass.config_entries.async_setup(entry.entry_id)
         await hass.async_block_till_done()
         exported = await hass.services.async_call(

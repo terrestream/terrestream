@@ -1,10 +1,25 @@
 # Changelog
 
-## Python client and Home Assistant integration 0.1.1 — Unreleased
+## Home Assistant integration 0.1.1 — October 13, 2026
 
-Allow Protobuf 7 for compatibility with the Home Assistant development branch.
-Protocol behavior is unchanged. Compatibility tests cover Protobuf 5, 6, and 7
-on Python 3.13 and 3.14. The custom integration pins this client version.
+- Require the published `terrestream-local==0.1.1` client, resolving installation
+  against Home Assistant 2026.10.1's pinned Protobuf 7.36.0.
+- Import Home Assistant's Probatio validation engine directly for setup forms
+  and preference services, matching current HA type annotations.
+- Verify all 108 tests on HA 2026.10.1 and the minimum supported HA 2026.9.3.
+  Test the client on Python 3.13/3.14 with Protobuf 5, 6 and 7, including a full
+  synthetic Security2 pairing exchange and invalid-proof rejection.
+- Verify fresh physical-code pairing, live readings, controls, reload and restart
+  with an R500 sensor running firmware 4.1.1.
+
+See [release status](docs/release-status.md) for tested scope and remaining
+qualification. Alexa compatibility is a separate hardware test.
+
+## Python client 0.1.1 — September 26, 2026
+
+Published to PyPI from `client-v0.1.1`. Allows `protobuf>=5,<8`, retaining
+Protobuf 5 and 6 support while allowing Protobuf 7. The integration 0.1.1 release
+uses this existing package; it does not replace or republish the client.
 
 ## Python client 0.1.0 — September 26, 2026
 

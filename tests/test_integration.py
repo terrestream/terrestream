@@ -35,8 +35,18 @@ def config_entry():
     )
 
 
+def mock_available_measurements(client, data):
+    """Only advertise readings present in this synthetic device's snapshot."""
+    client.measurement_available.side_effect = lambda key: (
+        data["measurements"].get(key, {}).get("available", False)
+    )
+    client.measurement_remaining.side_effect = lambda key: (
+        60.0 if client.measurement_available(key) else 0.0
+    )
+
+
 @pytest.mark.asyncio
-async def test_setup_unload_entities_and_service_readback(hass: HomeAssistant):
+async def test_setup_unload_entities_and_service_readback(hass: HomeAssistant, caplog):
     data = snapshot()
     data["settings"].update(
         timezone="America/New_York", quiet_start=1320, quiet_end=420
@@ -47,13 +57,14 @@ async def test_setup_unload_entities_and_service_readback(hass: HomeAssistant):
         client = factory.return_value
         client.credentials = Credentials(UUID, "ab" * 32, TOKEN)
         client.identity = AsyncMock(return_value={"paired": True})
-        client.measurement_remaining.return_value = 60.0
+        mock_available_measurements(client, data)
         client.refresh = AsyncMock(return_value=data)
         client.command = AsyncMock(return_value={"ok": True})
-        client.measurement_available.return_value = True
         assert await hass.config_entries.async_setup(entry.entry_id)
         await hass.async_block_till_done()
         assert hass.states.get("sensor.terrestream_r500_carbon_dioxide").state == "500"
+        assert hass.states.get("sensor.terrestream_r500_pm1").state == "unavailable"
+        assert "Error adding entity" not in caplog.text
         await hass.services.async_call(
             "switch",
             "turn_on",
@@ -129,9 +140,9 @@ async def test_setup_confirms_only_after_entry_is_saved(hass):
         client = factory.return_value
         client.credentials = Credentials(UUID, "ab" * 32, TOKEN)
         client.identity = AsyncMock(return_value={"paired": False})
-        client.refresh = AsyncMock(return_value=snapshot())
-        client.measurement_available.return_value = True
-        client.measurement_remaining.return_value = 60.0
+        data = snapshot()
+        client.refresh = AsyncMock(return_value=data)
+        mock_available_measurements(client, data)
         assert await hass.config_entries.async_setup(entry.entry_id)
         await hass.async_block_till_done()
         client.confirm.assert_awaited_once()
@@ -215,9 +226,9 @@ async def test_graceful_ha_stop_releases_controller_lease(hass, offline):
         client = factory.return_value
         client.credentials = Credentials(UUID, "ab" * 32, TOKEN)
         client.identity = AsyncMock(return_value={"paired": True})
-        client.refresh = AsyncMock(return_value=snapshot())
-        client.measurement_available.return_value = True
-        client.measurement_remaining.return_value = 60.0
+        data = snapshot()
+        client.refresh = AsyncMock(return_value=data)
+        mock_available_measurements(client, data)
         assert await hass.config_entries.async_setup(entry.entry_id)
         await hass.async_block_till_done()
         client.command.reset_mock()

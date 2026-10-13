@@ -3,7 +3,7 @@
 from dataclasses import asdict
 from typing import Any
 
-import voluptuous as vol
+import probatio
 from homeassistant import config_entries
 from homeassistant.config_entries import ConfigFlowResult
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -79,8 +79,8 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 )
         return self.async_show_form(
             step_id="reconfigure",
-            data_schema=vol.Schema(
-                {vol.Required("host", default=entry.data["host"]): str}
+            data_schema=probatio.Schema(
+                {probatio.Required("host", default=entry.data["host"]): str}
             ),
             errors=errors,
         )
@@ -118,11 +118,11 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 )
         return self.async_show_form(
             step_id="user",
-            data_schema=vol.Schema(
+            data_schema=probatio.Schema(
                 {
-                    vol.Required("host", default=self._host): str,
-                    vol.Required("code"): str,
-                    vol.Optional("legacy_source", default="none"): SelectSelector(
+                    probatio.Required("host", default=self._host): str,
+                    probatio.Required("code"): str,
+                    probatio.Optional("legacy_source", default="none"): SelectSelector(
                         SelectSelectorConfig(
                             options=["none", "mqtt", "terrestream"],
                             translation_key="legacy_source",

@@ -1,5 +1,7 @@
 import hashlib
+import json
 import ssl
+from dataclasses import asdict
 from datetime import UTC, datetime
 
 import aiohttp
@@ -311,6 +313,116 @@ def test_pairing_parser_rejects_wrong_phases_and_nonce_lengths():
     msg.sec2.sr1.device_nonce = b"\x01" * 13
     with pytest.raises(AuthenticationError):
         _validate_pair_response(msg.SerializeToString(), 1)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("bad_proof", [False, True])
+async def test_security2_pairing_and_encrypted_bootstrap(peer, bad_proof):
+    """Exercise protobuf messages, SRP proofs, AES-GCM and the pinned identity.
+
+    Reusing saved credentials does not exercise protobuf. This synthetic device
+    completes the actual pairing protocol on each supported protobuf runtime.
+    """
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+
+    from terrestream_local import pair_device
+    from terrestream_local._espressif import srp6a
+    from terrestream_local._espressif.proto import sec2_pb2, session_pb2
+    from terrestream_local._espressif.utils import long_to_bytes
+
+    client, state = peer
+    state["reply"] = {"ok": True, "uuid": UUID, "protocol": 1, "paired": True}
+    code = "12345678"  # Synthetic test code, never a physical-device credential.
+    username = "terrestream"
+    salt = bytes.fromhex("102030405060708090a0b0c0d0e0f001")
+    nonce = bytes.fromhex("010203040506070800000001")
+    prime, generator = srp6a.get_ng(srp6a.NG_3072)
+    width = len(long_to_bytes(prime))
+    multiplier = srp6a.H(hashlib.sha512, prime, generator, width=width)
+    verifier = pow(
+        generator, srp6a.calculate_x(hashlib.sha512, salt, username, code), prime
+    )
+    private = int.from_bytes(b"synthetic server ephemeral key!!", "big")
+    public = (multiplier * verifier + pow(generator, private, prime)) % prime
+    exchange = {"steps": 0}
+
+    async def pair(request):
+        incoming = session_pb2.SessionData.FromString(await request.read())
+        assert incoming.sec_ver == session_pb2.SecScheme2
+        assert incoming.WhichOneof("proto") == "sec2"
+        outgoing = session_pb2.SessionData(sec_ver=session_pb2.SecScheme2)
+        if exchange["steps"] == 0:
+            assert incoming.sec2.msg == sec2_pb2.S2Session_Command0
+            assert incoming.sec2.WhichOneof("payload") == "sc0"
+            assert incoming.sec2.sc0.client_username == username.encode()
+            client_public = int.from_bytes(incoming.sec2.sc0.client_pubkey, "big")
+            scramble = srp6a.H(hashlib.sha512, client_public, public, width=width)
+            shared = pow(client_public * pow(verifier, scramble, prime), private, prime)
+            key = hashlib.sha512(long_to_bytes(shared)).digest()
+            proof = srp6a.calculate_M(
+                hashlib.sha512,
+                prime,
+                generator,
+                username,
+                int.from_bytes(salt, "big"),
+                client_public,
+                public,
+                key,
+            )
+            exchange.update(
+                key=key,
+                proof=proof,
+                server_proof=srp6a.calculate_H_AMK(
+                    hashlib.sha512, client_public, proof, key
+                ),
+            )
+            outgoing.sec2.msg = sec2_pb2.S2Session_Response0
+            outgoing.sec2.sr0.device_pubkey = long_to_bytes(public)
+            outgoing.sec2.sr0.device_salt = salt
+        else:
+            assert exchange["steps"] == 1
+            assert incoming.sec2.msg == sec2_pb2.S2Session_Command1
+            assert incoming.sec2.WhichOneof("payload") == "sc1"
+            assert incoming.sec2.sc1.client_proof == exchange["proof"]
+            outgoing.sec2.msg = sec2_pb2.S2Session_Response1
+            outgoing.sec2.sr1.device_proof = (
+                bytes(64) if bad_proof else exchange["server_proof"]
+            )
+            outgoing.sec2.sr1.device_nonce = nonce
+        exchange["steps"] += 1
+        return web.Response(body=outgoing.SerializeToString())
+
+    async def bootstrap(request):
+        assert not bad_proof
+        cipher = AESGCM(exchange["key"][:32])
+        assert cipher.decrypt(nonce, await request.read(), None) == b"bootstrap"
+        response_nonce = nonce[:8] + (2).to_bytes(4, "big")
+        data = json.dumps({"protocol": 1, **asdict(client.credentials)}).encode()
+        return web.Response(body=cipher.encrypt(response_nonce, data, None))
+
+    app = web.Application()
+    app.router.add_post("/pair", pair)
+    app.router.add_post("/bootstrap", bootstrap)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, "127.0.0.1", 0)
+    await site.start()
+    port = site._server.sockets[0].getsockname()[1]
+    try:
+        if bad_proof:
+            with pytest.raises(AuthenticationError):
+                await pair_device(client.session, "127.0.0.1", code, pair_port=port)
+            assert not state["calls"]  # Unauthenticated peer never receives a token.
+        else:
+            credentials, paired = await pair_device(
+                client.session, "127.0.0.1", code, expected_uuid=UUID, pair_port=port
+            )
+            assert credentials == client.credentials
+            assert paired._snapshot is None  # Identity check does not take the lease.
+            assert state["calls"][0]["body"]["method"] == "identity"
+        assert exchange["steps"] == 2
+    finally:
+        await runner.cleanup()
 
 
 @pytest.mark.asyncio

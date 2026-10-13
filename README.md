@@ -4,8 +4,8 @@ Connect your **Terrestream℠ Indoor Air Quality sensor** to Home Assistant over
 local Wi-Fi. See live readings, adjust settings, and create automations—without
 an MQTT broker or a Terrestream account.
 
-**Version 0.1.0 · September 26, 2026.** The custom integration is available from
-[GitHub Releases](https://github.com/terrestream/terrestream/releases/tag/v0.1.0).
+**Version 0.1.1 · October 13, 2026.** The custom integration is available from
+[GitHub Releases](https://github.com/terrestream/terrestream/releases/tag/v0.1.1).
 Requires firmware **4.1.0**. [Tested scope and release status →](docs/release-status.md)
 
 ```mermaid

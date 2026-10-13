@@ -2,7 +2,7 @@
 
 from typing import Any, cast
 
-import voluptuous as vol
+import probatio
 from homeassistant.config_entries import ConfigEntryState
 from homeassistant.core import HomeAssistant, ServiceCall, SupportsResponse
 from homeassistant.exceptions import HomeAssistantError
@@ -60,7 +60,7 @@ def register(hass: HomeAssistant) -> None:
         DOMAIN,
         "export_preferences",
         export,
-        schema=vol.Schema({vol.Required("config_entry_id"): str}),
+        schema=probatio.Schema({probatio.Required("config_entry_id"): str}),
         supports_response=SupportsResponse.ONLY,
     )
     async_register_admin_service(
@@ -68,7 +68,10 @@ def register(hass: HomeAssistant) -> None:
         DOMAIN,
         "import_preferences",
         restore,
-        schema=vol.Schema(
-            {vol.Required("config_entry_id"): str, vol.Required("profile"): dict}
+        schema=probatio.Schema(
+            {
+                probatio.Required("config_entry_id"): str,
+                probatio.Required("profile"): dict,
+            }
         ),
     )
