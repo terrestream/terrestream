@@ -23,4 +23,3 @@ export function adaptAlexaVocState(entityId, state, enabled = process.env.TERRES
     attributes: { ...copied, state_class: 'measurement', device_class: 'volatile_organic_compounds', unit_of_measurement: 'µg/m³' },
   };
 }
-

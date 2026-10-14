@@ -40,4 +40,3 @@ test('missing startup state stays missing; restored unavailable helper keeps top
   assert.equal(output.attributes.restored, undefined);
   for (const value of ['0', '25', '65', '100']) assert.equal(adaptAlexaVocState(HELPER, state(value), true).state, value);
 });
-
