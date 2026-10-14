@@ -22,7 +22,7 @@ allows `protobuf>=5,<8`. The integration 0.1.1 release pins that existing client
 and imports Probatio directly to match HA's current schema types. Its client
 runtime files match the published PyPI wheel byte for byte.
 
-Verified locally:
+Verified:
 
 - All **108 tests** pass on HA **2026.10.1 / Protobuf 7.36.0**, including setup,
   controls, reauthentication, lifecycle, stale readings and package exclusions.
@@ -52,11 +52,27 @@ Verified locally:
 - The existing local Matterbridge receives readings through the updated HA.
   This verifies internal bridge attributes, not Alexa support.
 
-**Still required before customer recommendation:** a clean HACS installation of
-the published integration on the intended HA deployment. The October compatibility
-run uses Docker Desktop on macOS, a supplemental lab rather than HA's supported
-Linux Container deployment. Alexa commissioning and spoken CO₂ remain a separate
-hardware test.
+### Clean HACS installation of the published release
+
+After publication, **HACS 2.0.5** was configured through its UI in a fresh official
+**HA 2026.10.1** container with an empty configuration. Adding
+`terrestream/terrestream` as a custom **Integration** repository and downloading
+**v0.1.1** installed all 30 component files, byte-identical to the release commit.
+HACS retained the installed version across restart. HA automatically installed
+the public `terrestream-local==0.1.1` package with **Protobuf 7.36.0** unchanged;
+no Terrestream source or wheel was copied into this clean installation manually.
+
+Fresh eight-digit pairing with the physical **R500 / firmware 4.1.1** loaded
+**35 enabled entities and 12 valid measurements**. A dark-theme change and
+restoration, integration reload, and full container recreation passed. The
+recreated official container automatically installed the dependency again and
+restored pairing and all measurements from the preserved configuration, with no
+Terrestream or Protobuf errors during startup.
+
+This October run uses Docker Desktop on macOS, a supplemental lab rather than
+HA's supported Linux Container deployment. **0.1.1 on Linux Container and HA OS
+remain unqualified.** Alexa commissioning and spoken CO₂ remain separate hardware
+tests; HACS installation does not establish Alexa support.
 
 ## 0.1.0 release acceptance
 
@@ -93,7 +109,7 @@ accepts the stated bounded behavior while preserving the earlier evidence.
 
 ## Qualification still outstanding
 
-- HA OS, end-to-end HACS UI installation, multicast discovery across the test VM,
+- HA OS, 0.1.1 on Linux Container, multicast discovery across the test VM,
   routed IPv6, multiple sensors, physical actuators and existing MQTT/cloud migrations.
 - WAN-blocked retail cold boot and packet-capture privacy evidence.
 - Extended retail load, poor-network and fault recovery, BLE/MQTT/mobile coexistence,
