@@ -1,0 +1,17 @@
+{
+  "name": "terrestream-alexa-companion",
+  "version": "0.1.2",
+  "private": true,
+  "type": "module",
+  "description": "Optional Alexa-only companion for Terrestream Local",
+  "engines": {
+    "node": ">=24 <25 || >=26 <27"
+  },
+  "scripts": {
+    "test": "node --test test_*.mjs"
+  },
+  "dependencies": {
+    "matterbridge": "3.10.13",
+    "matterbridge-hass": "1.5.0"
+  }
+}

@@ -4,8 +4,8 @@ Connect your **Terrestream℠ Indoor Air Quality sensor** to Home Assistant over
 local Wi-Fi. See live readings, adjust settings, and create automations—without
 an MQTT broker or a Terrestream account.
 
-**Version 0.1.1 · October 13, 2026.** The custom integration is available from
-[GitHub Releases](https://github.com/terrestream/terrestream/releases/tag/v0.1.1).
+**Version 0.1.2 · October 13, 2026.** The custom integration is available from
+[GitHub Releases](https://github.com/terrestream/terrestream/releases/tag/v0.1.2).
 Requires firmware **4.1.0**. [Tested scope and release status →](docs/release-status.md)
 
 ```mermaid
@@ -13,6 +13,16 @@ flowchart LR
     sensor["Terrestream℠ Indoor Air Quality sensor"] <-->|Local Wi-Fi| ha["Home Assistant"]
     ha --> use["Dashboards & automations"]
 ```
+
+## Optional Alexa display support
+
+Version 0.1.2 includes a separate [Alexa Matterbridge companion](alexa/README.md)
+for an always-on host. The tested Alexa app displays temperature, PM2.5,
+humidity, a firmware-derived IAQ category and a VOC compatibility index.
+**CO₂ is not available in Alexa in this release.** Humidity appears in the device
+summary, but its history tab and spoken humidity queries were not working in
+our test. The companion is installed separately; updating through HACS installs
+only the HA integration. Read the setup guide before pairing a bridge.
 
 ## One device. Six sensors. 12 signals.
 

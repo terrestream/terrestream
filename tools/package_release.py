@@ -44,6 +44,20 @@ FILES = (
     "pyproject.toml",
     "requirements-test.txt",
     "hacs.json",
+    "alexa/.gitignore",
+    "alexa/README.md",
+    "alexa/package.json",
+    "alexa/package-lock.json",
+    "alexa/requirements.txt",
+    "alexa/upstream.json",
+    "alexa/compat.py",
+    "alexa/configure.py",
+    "alexa/patch.py",
+    "alexa/bridge.mjs",
+    "alexa/alexa_voc_adapter.mjs",
+    "alexa/test_compat.py",
+    "alexa/test_alexa_voc_adapter.mjs",
+    "alexa/test_voc_bridge_runtime.mjs",
 )
 DIRECTORIES = ("src", "custom_components", "tests", "blueprints", ".github")
 SUFFIXES = {
@@ -159,11 +173,23 @@ def main():
     install = dist / f"terrestream-ha-{manifest['version']}-custom.zip"
     archive(source, files)
     archive(install, [p for p in files if p.is_relative_to(ROOT / "custom_components")])
+    companion = dist / f"terrestream-alexa-{manifest['version']}.zip"
+    archive(
+        companion,
+        [
+            p
+            for p in files
+            if p.is_relative_to(ROOT / "alexa")
+            or p.name in {"LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"}
+            and p.parent == ROOT
+        ],
+    )
     hashes = {
         p.name: hashlib.sha256(p.read_bytes()).hexdigest()
         for p in (
             source,
             install,
+            companion,
             dist / f"terrestream_local-{project['version']}-py3-none-any.whl",
             dist / f"terrestream_local-{project['version']}.tar.gz",
         )
@@ -180,7 +206,10 @@ def main():
     }
     (dist / "release-manifest.json").write_text(json.dumps(receipt, indent=2) + "\n")
     (dist / "SHA256SUMS").write_text(
-        "".join(f"{digest}  {name}\n" for name, digest in hashes.items())
+        "".join(
+            f"{hashes[path.name]}  {path.name}\n"
+            for path in (source, install, companion)
+        )
     )
     print(f"Prepared {len(files)} allowlisted files; no publication performed.")
 

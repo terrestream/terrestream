@@ -42,3 +42,19 @@ geometry; Aerodyne added the homepage colors and circular backgrounds.
 - License: ISC; the upstream copyright and permission notice are included in
   [`docs/assets/lucide-LICENSE.txt`](docs/assets/lucide-LICENSE.txt).
 - These assets are documentation only and are not part of the Python client.
+
+## Optional Alexa companion
+
+The `alexa/` companion installs Matterbridge 3.10.13 and matterbridge-hass 1.5.0
+as separate npm dependencies under their Apache-2.0 licenses. Their transitive
+dependencies retain their own notices in the installed packages. No dependency
+runtime, local configuration or pairing identity is included in the companion ZIP.
+The compatibility installer applies a narrow local modification to the pinned
+matterbridge-hass module; `alexa/patch.py` records the inserted code and guards
+against a different upstream build.
+
+- [Matterbridge](https://github.com/Luligu/matterbridge)
+- [matterbridge-hass](https://github.com/Luligu/matterbridge-hass)
+
+Amazon, Alexa and Matter names identify tested interoperability; no certification
+or endorsement is implied.

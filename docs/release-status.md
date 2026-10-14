@@ -4,7 +4,8 @@
 
 | Component | Status |
 |---|---|
-| Custom integration 0.1.1 | [Published on GitHub](https://github.com/terrestream/terrestream/releases/tag/v0.1.1); manual archive and HACS custom repository |
+| Custom integration 0.1.2 | Manual archive and HACS custom repository; Python client remains 0.1.1 |
+| Optional Alexa companion 0.1.2 | Separate native Matterbridge setup; see the [Alexa guide](../alexa/README.md) |
 | Python client 0.1.1 | [Published on PyPI](https://pypi.org/project/terrestream-local/0.1.1/); installed automatically by HA |
 | Firmware 4.1.0 | Published fleet-wide through the normal signed server update path |
 | HACS default catalog | Not included; add this repository manually |
@@ -12,6 +13,35 @@
 
 Firmware 4.0.72 does not support this protocol. Firmware distribution does not
 establish installation on every sensor or completion of all qualification work.
+
+## 0.1.2 Alexa display companion — October 13, 2026
+
+The HA integration's runtime changes only its release version. The optional
+companion packages the mappings and bridge adapter verified with a physical
+Terrestream sensor (firmware 4.1.1), HA 2026.10.1, native macOS Matterbridge
+3.10.13 / matterbridge-hass 1.5.0, and an updated Echo Dot (5th generation) using
+Alexa+. The tested setup is a single Terrestream on a dedicated Alexa bridge.
+
+The user confirmed temperature, humidity and particulate matter in the Alexa
+device overview, the IAQ heading changing from Unknown to Good, TVOC appearing
+in the main device, and the corrected VOC display after the compatibility
+mapping. Temperature and PM history views were visible. Humidity's history tab
+and spoken query were absent/failing. **CO₂ does not appear or answer correctly
+in Alexa.** Temperature-by-name and spoken VOC are not claimed as verified.
+
+The VOC score is a Terrestream display mapping, not Amazon's sensor algorithm.
+Its bridge adapter deliberately sends the score through the Matter TVOC field,
+whose wire unit is still µg/m³, to accommodate Alexa's observed index display.
+This is a nonstandard, Alexa-only workaround. HA's real concentration stays
+unchanged; other Matter ecosystems must use a separate bridge without it.
+
+The release includes source, a standalone companion archive, pinned dependencies,
+conversion and plugin-runtime tests, setup preflight and runtime hash guards.
+No development credentials, pairing identity, private logs, draft CO₂ skill,
+or personal HA configuration are distributed. HACS does not install the
+companion automatically. No Amazon/Works with Alexa certification is claimed.
+The September Linux HA integration tests below do not establish a Linux
+installation or multi-sensor acceptance test of this new companion.
 
 ## 0.1.1 compatibility verification — October 13, 2026
 
@@ -71,8 +101,8 @@ Terrestream or Protobuf errors during startup.
 
 This October run uses Docker Desktop on macOS, a supplemental lab rather than
 HA's supported Linux Container deployment. **0.1.1 on Linux Container and HA OS
-remain unqualified.** Alexa commissioning and spoken CO₂ remain separate hardware
-tests; HACS installation does not establish Alexa support.
+remain unqualified.** The later Alexa display trial is summarized above. Spoken CO₂ remains
+unsupported; HACS installation alone does not provide Alexa support.
 
 ## 0.1.0 release acceptance
 

@@ -1,5 +1,19 @@
 # Changelog
 
+## Home Assistant integration 0.1.2 — October 13, 2026
+
+- Publish the optional Alexa Matterbridge companion, with the pinned bridge and
+  plugin versions used in the physical Echo Dot test.
+- Create HA Template helpers for the firmware IAQ category and a separate
+  dimensionless VOC compatibility index; preserve the real HA TVOC concentration.
+- Include an opt-in, version-checked bridge adapter for Alexa's 0–100 VOC display,
+  one selected Terrestream device, private configuration and a restore command.
+- Document the verified app display, pairing recovery, and the remaining CO₂,
+  humidity history and voice-query limitations. No CO₂ voice skill is included.
+- Keep the published Python client at 0.1.1. No firmware change is required.
+
+See the [Alexa guide](alexa/README.md) and [release status](docs/release-status.md).
+
 ## Home Assistant integration 0.1.1 — October 13, 2026
 
 - Require the published `terrestream-local==0.1.1` client, resolving installation

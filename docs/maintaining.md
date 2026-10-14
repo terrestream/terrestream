@@ -45,7 +45,7 @@ Python source distribution. Publish only the distributions after that step.
 6. Check that the integration manifest version matches `v<version>`, its pinned
    client is available on PyPI, and HACS/hassfest pass for the same commit. Create
    the integration GitHub Release with its release notes, required firmware version,
-   `terrestream-ha-<version>-custom.zip` and `SHA256SUMS`. Only integration versions
+   `terrestream-ha-<version>-custom.zip`, `terrestream-alexa-<version>.zip` and `SHA256SUMS`. Only integration versions
    receive GitHub Releases. HACS custom-repository installation uses
    `terrestream/terrestream`; default-list inclusion requires a separate review.
 7. Distribute the firmware before submitting the Core contribution.

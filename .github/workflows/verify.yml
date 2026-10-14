@@ -15,7 +15,17 @@ jobs:
         with:
           python-version: '3.14'
       - run: python -m pip install -e . -r requirements-test.txt
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
       - run: python tools/verify.py
+      - name: Verify optional Alexa companion
+        run: |
+          python -m ruff check alexa --exclude node_modules
+          python -m ruff format --check alexa --exclude node_modules
+          python -m unittest discover -s alexa -p 'test_*.py'
+          npm ci --ignore-scripts --no-audit --no-fund --prefix alexa
+          npm test --prefix alexa
       - run: python -m build
       - run: python tools/package_release.py
       - run: python -m twine check dist/*.whl dist/*.tar.gz

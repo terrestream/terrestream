@@ -63,6 +63,9 @@ def test_public_archive_excludes_internal_and_unlisted_support_files(tmp_path):
         tmp_path / "internal" / "reviews" / "inventory.md",
         tmp_path / "docs" / "private-notes.md",
         tmp_path / "tools" / "internal-helper.py",
+        tmp_path / "alexa" / "node_modules" / "dependency" / "private.json",
+        tmp_path / "alexa" / "runtime" / "token.json",
+        tmp_path / "alexa" / "development-co2-skill.py",
     ]
     for path in private_files:
         path.parent.mkdir(parents=True, exist_ok=True)
